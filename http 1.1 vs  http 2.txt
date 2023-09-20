@@ -1,0 +1,42 @@
+                  
+                  HTTP 1.1  vs  HTTP 2
+
+HTTP 1.1  
+      
+HTTP1.1 is from HTTP 1
+HTTP 1 in 1996 and follwed soon HTTP 1.1 in 1997
+Introduce the keep alive mechanism
+Requires a separate TCP connection
+TCP connection established between client & server   
+The connection was not lost here after the first request because we add a keep-alive header which is the part of the request so there is an open connection between the server & client    
+Persistent connection which means several requests & responses are merged in a single connection  
+ Lead to the creation of HTTP/2  
+Problem is HTTP/1.1 transfer all the requests & responses in the plain text message form.
+Head of line blocking in which TCP connection is blocked all other requests until the response does not receive. all the information related to the header file is repeated in every request.
+HTTP 1.1 also have HTTP pipelining
+Client give multiple request before waiting response
+The response must be received as the order of request
+It tricky to implement correctly
+HTTP1.1 with pipelining also suffers from an issue called head of line blocking
+
+
+HTTP 2
+   
+HTTP 2 in 2015 
+   It introduces the concept of a server push where the server anticipates the resources that will be required by the client and pushes them prior to the client making requests. The client retains the authority to deny the server push; however, in most cases, this feature adds a lot of efficiency to the process. 
+Introduces the concept of multiplexing that interleaves the requests and responses without head-of-line blocking and does so over a single TCP connection
+It is a binary protocol i.e. only binary commands in the form of 0s and 1s are transmitted over the wire. The binary framing layer divides the message into frames that are segregated based on their type – Data or Header. This feature greatly increases efficiency in terms of security, compression and multiplexing.
+HTTP/2 uses HPACK header compression algorithm that is resilient to attacks like CRIME and utilizes static Huffman encoding.
+ HTTP2 is much faster and more reliable than HTTP1
+HTTP1 loads a single request for every TCP connection, while HTTP2 avoids network delay by using multiplexing.
+.Header compression is included by default in HTTP/2 using HPACK.Performance OptimizationProvides support for caching to deliver pages faster.Spriting, concatenating, inlining, domain sharding are some of the optimizations used as a workaround to the ‘six connections per host’ rule.Removes the need for unnecessary optimization hacks
+ It also has some minimum standards, such as minimum key size for encryption. TLS 1.2 
+Header compression is included by default in HTTP/2 using HPACK.Performance OptimizationProvides support for caching to deliver pages faster
+Uses multiplexing, where over a single TCP connection resources to be delivered are interleaved and arrive at the client almost at the same time
+ It is done using streams which can be prioritized, can have dependencies and individual flow control
+It also provides a feature called server push that allows the server to send data that the client will need but has not yet requested.
+In status code Underlying semantics of HTTP such as headers, status codes remains the same.
+Security concerns from previous versions will continue to be seen in HTTP/2
+    
+
+
